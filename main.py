@@ -63,23 +63,18 @@ def Karte():
                         lcd.move_to(0,0)
                         lcd.putstr("Warten auf Tag:")
                         buzzer()
-                        print("1 hier bin ich")
                         neuerTagGelesen = False
                         while neuerTagGelesen == False:
                             reader.init()
                             (stat2, tag_type2) = reader.request(reader.REQIDL)
                             if stat2 == reader.OK:
-                                print("2 hier bin ich")
                                 (stat2, uid2) = reader.SelectTagSN()
                                 if stat2 == reader.OK:
-                                    print("3 hier bin ich")
                                     cardIDtoReset = int.from_bytes(bytes(uid2),"little",False)
                                     neuerTagGelesen = True
                                     lcd.clear()
                                     lcd.move_to(0,0)
-                                    print("3b ier bin ich " + str(cardIDtoReset))
                                     if nutzer.get(cardIDtoReset) == None:
-                                        print("4 hier bin ich")
                                         print(nutzer.get(int(cardIDtoReset)))
                                         lcd.putstr("Nutzer unbekannt")
                                         led_order(0, 'red')
@@ -91,7 +86,6 @@ def Karte():
                                         led_order(0, 'off')
                                         lcd.clear()
                                     else:
-                                        print("5 hier bin ich")
                                         lcd.putstr("ID:")
                                         lcd.move_to(4,0)
                                         lcd.putstr(nutzer[cardIDtoReset][0])
@@ -128,7 +122,7 @@ def Karte():
                         lcd.move_to(0,0)
                         lcd.putstr("Nutzer hinzu-")
                         lcd.move_to(0,1)
-                        lcd.putstr(gefügt)
+                        lcd.putstr("gef\xF5gt")
                         utime.sleep_ms(1000)
                         led_order(0, 'off')
                         utime.sleep_ms(2000)
