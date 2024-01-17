@@ -1,5 +1,8 @@
 RFID Kaffee-Counter mit Micropython auf Raspberry Pi Pico W
 
+Die STL-Datei ist für ein "TEKO Gehäuse, 115.5, ABS, Hellgrau, 161 x 95 x 60 mm, Europult" erstellt worden.
+https://www.pollin.de/p/teko-gehaeuse-115-5-abs-hellgrau-161-x-95-x-60-mm-europult-460938
+
 Vor der initalen Nutzung sollte mit dem ausführen der SetTime.py die aktuelle Uhrzeit und das Datum eingestellt werden, welche auf das RTC-Modul DS1307 gespeichert wird. Die Uhrzeit und das Datum wird im Leerlauf auf dem 16x2 LCD-Display angezeigt.
 
 Es können die speziellen Tag-Typen goldTag, silverTag und bronzeTag jeweils einem RFID-Tag zugewiesen werden.
