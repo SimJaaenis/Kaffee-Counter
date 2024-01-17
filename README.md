@@ -34,5 +34,5 @@ Um derzeit Umlaute auf dem LCD Display darzustellen sind folgende Codes zu nutze
 \xE4 // gibt ein µ aus
 \xF4 // gibt ein Ω aus
 
-ggf. Umstellung auf eine andere lib, behebt dieses Problem. Issue erstellt.
+ggf. Umstellung auf eine andere lib, behebt dieses Problem. Issue [#1](https://github.com/SimJaaenis/Kaffee-Counter/issues/1) erstellt.
 https://werner.rothschopf.net/202003_arduino_liquid_crystal_umlaute.htm  
