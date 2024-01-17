@@ -11,6 +11,14 @@ from nutzer_api import *
 
 ######## Definitionen
 
+goldTag = 234973
+silberTag = 623906047
+demoUser = 281526448
+
+#goldTag = 629409519
+#silberTag = 623906047
+#demoUser = 1982696638
+
 #### Uhr
 i2c_lcd = machine.I2C(1,scl=Pin(15),sda=Pin(14),freq=400000)
 
@@ -50,9 +58,9 @@ def Karte():
             if stat == reader.OK:
                 cardID = int.from_bytes(bytes(uid),"little",False)
                 print(str(cardID))
-                userID = nutzer.get(cardID)
-                if userID == None:
-                    if cardID == 629409519:
+                known_user = known_User(cardID)
+                if not known_User(cardID):
+                    if cardID == goldTag:
                         ###### Gold Tag
                         buzzer()
                         lcd.clear()
@@ -74,8 +82,7 @@ def Karte():
                                     neuerTagGelesen = True
                                     lcd.clear()
                                     lcd.move_to(0,0)
-                                    if nutzer.get(cardIDtoReset) == None:
-                                        print(nutzer.get(int(cardIDtoReset)))
+                                    if not known_User(cardIDtoReset):
                                         lcd.putstr("Nutzer unbekannt")
                                         led_order(0, 'red')
                                         error()
@@ -88,10 +95,10 @@ def Karte():
                                     else:
                                         lcd.putstr("ID:")
                                         lcd.move_to(4,0)
-                                        lcd.putstr(nutzer[cardIDtoReset][0])
+                                        lcd.putstr(get_Nutzer(cardIDtoReset))
                                         lcd.move_to(0,1)
                                         lcd.putstr("Anzahl: ")
-                                        lcd.move_to(7,1)
+                                        lcd.move_to(8,1)
                                         lcd.putstr(reset_Nutzer(cardIDtoReset))
                                         led_order(0, 'green')
                                         buzzer()
@@ -102,12 +109,85 @@ def Karte():
                                         led_order(0, 'off')
                                         utime.sleep_ms(10000)
                                         lcd.clear()
-                            sleep_ms(50)
-                    elif cardID == 1982696638:
+                    elif cardID == silberTag:
+                        ###### Silber Tag
+                        buzzer()
+                        lcd.clear()
+                        lcd.move_to(0,0)
+                        lcd.putstr("SILBER TAG")
+                        lcd.move_to(0,1)
+                        lcd.putstr("erkannt")
+                        sleep_ms(1000)
+                        lcd.clear()
+                        lcd.move_to(0,0)
+                        lcd.putstr("Warten auf Tag:")
+                        buzzer()
+                        readNewTag = False
+                        while readNewTag == False:
+                            reader.init()
+                            (stat3, tag_stat2) = reader.request(reader.REQIDL)
+                            if stat3 == reader.OK:
+                                (stat3, uid3) = reader.SelectTagSN()
+                                if stat3 == reader.OK:
+                                    cardIDReadOut = int.from_bytes(bytes(uid3),"little",False)
+                                    readNewTag = True
+                                    lcd.clear()
+                                    lcd.move_to(0,0)
+                                    if not known_User(cardIDReadOut):
+                                        lcd.putstr("Nutzer unbekannt")
+                                        led_order(0, 'red')
+                                        error()
+                                        led_order(0, 'off')
+                                        error()
+                                        led_order(0, 'red')
+                                        error()
+                                        led_order(0, 'off')
+                                        lcd.clear()
+                                    else:
+                                        lcd.putstr("ID:")
+                                        lcd.move_to(4,0)
+                                        lcd.putstr(get_Nutzer(cardIDReadOut))
+                                        lcd.move_to(0,1)
+                                        lcd.putstr("Anzahl: ")
+                                        lcd.move_to(8,1)
+                                        lcd.putstr(get_Nutzer_Coffee(cardIDReadOut))
+                                        buzzer()
+                                        led_order(0, 'yellow')
+                                        utime.sleep_ms(150)
+                                        led_order(0, 'off')
+                                        utime.sleep_ms(150)
+                                        led_order(0, 'yellow')
+                                        utime.sleep_ms(150)
+                                        led_order(0, 'off')
+                                        utime.sleep_ms(150)
+                                        led_order(0, 'yellow')
+                                        utime.sleep_ms(150)
+                                        led_order(0, 'off')
+                                        utime.sleep_ms(150)
+                                        led_order(0, 'yellow')
+                                        utime.sleep_ms(150)
+                                        led_order(0, 'off')
+                                        utime.sleep_ms(150)
+                                        led_order(0, 'yellow')
+                                        utime.sleep_ms(150)
+                                        led_order(0, 'off')
+                                        utime.sleep_ms(2000)
+                                        lcd.clear()
+                    elif cardID == demoUser:
                         ###### Demo Tag ohne User hinzuzufügen
                         led_order(0, 'red')
                         error()
-                        utime.sleep_ms(1000)
+                        lcd.clear()
+                        lcd.move_to(0,0)
+                        lcd.putstr("Nutzer unbekannt")
+                        utime.sleep_ms(2000)
+                        lcd.clear()
+                        lcd.move_to(0,0)
+                        lcd.putstr("Neuer Nutzer")
+                        lcd.move_to(0,1)
+                        lcd.putstr('hinzugef\xF5gt NO')
+                        utime.sleep_ms(2000)
+                        lcd.clear()
                         led_order(0, 'off')
                         utime.sleep_ms(2000)
                     else:   
@@ -117,29 +197,28 @@ def Karte():
                         lcd.clear()
                         lcd.move_to(0,0)
                         lcd.putstr("Nutzer unbekannt")
-                        utime.sleep_ms(1000)
+                        utime.sleep_ms(2000)
                         lcd.clear()
                         lcd.move_to(0,0)
-                        lcd.putstr("Nutzer hinzu-")
+                        lcd.putstr("Neuer Nutzer")
                         lcd.move_to(0,1)
-                        lcd.putstr("gef\xF5gt")
-                        utime.sleep_ms(1000)
+                        lcd.putstr('hinzugef\xF5gt')
+                        utime.sleep_ms(2000)
+                        lcd.clear()
                         led_order(0, 'off')
                         utime.sleep_ms(2000)
                 else:
-                    print(nutzer[cardID][0])
                     lcd.clear()
                     lcd.move_to(0,0)
                     lcd.putstr("ID:")
                     lcd.move_to(4,0)
-                    lcd.putstr(nutzer[cardID][0])
+                    lcd.putstr(get_Nutzer(cardID))
                     lcd.move_to(0,1)
                     lcd.putstr("Anzahl: ")
-                    lcd.move_to(7,1)
+                    lcd.move_to(8,1)
                     lcd.putstr(add_Nutzer_Coffee(cardID))
-                    ######
-                    led_order(0, 'green')
                     buzzer()
+                    led_order(0, 'green')
                     utime.sleep_ms(1000)
                     led_order(0, 'off')
                     utime.sleep_ms(2000)
