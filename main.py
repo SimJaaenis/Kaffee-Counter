@@ -12,12 +12,12 @@ from nutzer_api import *
 ######## Definitionen
 
 goldTag = 234973
-silberTag = 623906047
-demoUser = 281526448
+silverTag = 623906047
+bronzeTag = 281526448
 
 #goldTag = 629409519
 #silberTag = 623906047
-#demoUser = 1982696638
+#bronzeTag = 1982696638
 
 #### Uhr
 i2c_lcd = machine.I2C(1,scl=Pin(15),sda=Pin(14),freq=400000)
@@ -109,7 +109,7 @@ def Karte():
                                         led_order(0, 'off')
                                         utime.sleep_ms(10000)
                                         lcd.clear()
-                    elif cardID == silberTag:
+                    elif cardID == silverTag:
                         ###### Silber Tag
                         buzzer()
                         lcd.clear()
@@ -173,7 +173,7 @@ def Karte():
                                         led_order(0, 'off')
                                         utime.sleep_ms(2000)
                                         lcd.clear()
-                    elif cardID == demoUser:
+                    elif cardID == bronzeTag:
                         ###### Demo Tag ohne User hinzuzufügen
                         led_order(0, 'red')
                         error()

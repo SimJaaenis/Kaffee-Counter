@@ -1,5 +1,11 @@
 RFID Kaffee-Counter mit Micropython auf Raspberry Pi Pico W
 
+Vor der initalen Nutzung können die speziellen Tag-Typen goldTag, silverTag und bronzeTag jeweils einem RFID-Tag zugewiesen werden.
+Die Funktion der speziellen Tag-Typen ist wie folgt:
+- goldTag:    Der GoldTag ist in der Lage den Kaffee Counter eines Nutzers auf 0 zu reseten. Dazu muss der GoldTag ausgelesen werden und nach aufforderung der zu Nutzertag der zurückgesetzt werden soll. Der Counter wird anschließend auf 0 gesetzt und die Anzahl ein letztes mal im Display angezeigt. Im Anschluss kann nicht mehr nachvollzogen werden wie viele Kaffees getrunken wurden.
+- silverTag:  Der Silver Tag funktioniert wie der GoldTag, nur dass die Anzahl der bezogenen Kaffees im Anschluss nicht gelöscht wird. Der Tag wurde auf nachfrage der Nutzer implementiert für Nutzer, die ihre aktuellen Bezüge selbst prüfen wollten.
+- brozeTag:   Der BronzeTag existiert aus Demonstrationsgründen um Nutzern bei der ersteinweisung zu zeigen was passiert, wenn ein unbekannter Tag erkannt wird. Es erscheint nach dem scannen des Tags die Meldung "Nutzer unbekannt" - "Neuer Nutzer hinzugefügt", allerding ohne einen neuen Nutzer anzulegen. Um den einzuweisenden Nutzern das korrekte scannen zu demonstrieren, empfiehlt es sich einen normalen Nutzer als Demo-Nutzer anzulegen
+
 Die Datei Log/Karte_NutzerID.log speichert die Zuordnung der Karten zu den Nutzern und wird nur durch das einlesen eines unbekannten Tags oder manuell editiert. Beim einlesen eines unbekannten Tags wird der Tag neu angelegt. Nutzername ist hierbei die Tag-ID.
 Jeder Tag erhält eine eigene Zeile. Ist ein Nutzername mehrfach vorhanden, werden die Kaffees beider Tags, auf ein Konto in der NutzerID_Kaffee.log gerechnet.
 Format der Datei:
