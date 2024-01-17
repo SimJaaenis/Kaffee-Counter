@@ -1,0 +1,12 @@
+Metadata-Version: 2.1
+Name: urtc
+Version: 1.0
+Summary: Drivers for RTC modules for MicroPython.
+Author: Radomir Dopieralski
+Author-email: micropython@sheep.art.pl
+Classifier: Development Status :: 6 - Mature
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+
+This library lets you communicate with several real-time clock modules. At
+the moment DS1307, DS3231 and PCF8523 are supported.
