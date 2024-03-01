@@ -11,7 +11,7 @@ from buzzer_api import *
 from neopixel_api import *
 from nutzer_api import *
 from hotspot import wap_create
-from webserver import Webserver
+import webserver
 
 ######## Definitionen
 
@@ -246,8 +246,7 @@ stdout.write("Starte Hotspot...\n")
 wap_create()
 stdout.write("Hotspot gestartet.\n")
 
-server = Webserver()
-server.init_webserver()
+webserver.init_webserver()
 
 buzzer()
 # lcd.clear()
@@ -279,7 +278,6 @@ buzzer()
 ######## Programm
 
 TaskQueue = [
-    server.webserver_task(),
     dummy_task()
         #Uhr(), Karte()
     ]
