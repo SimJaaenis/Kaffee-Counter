@@ -8,11 +8,26 @@ Die STL-Datei ist für ein "[TEKO Gehäuse, 115.5, ABS, Hellgrau, 161 x 95 x 60 
 
 ## Initiales Setup
 
+### Micropython Setup in VS Code
+
+1. Go to <https://micropython.org/download/> and download the latest version for the Pico or Pico W. You can use this [direct link](https://micropython.org/download/RPI_PICO_W/).
+2. Plugin the device into the computer while holding the `bootsel` button.
+3. Drag the UF2 file onto your Pico once it is done downloading. *It should show up on your Desktop as RPI-RP2.
+4. Once it is done, the RPI-RP2 will disappear.
+5. Unplug and replug the Pico (without holding the `bootsel` ). You need to do this so VSCode can find the device.
+
+Now install VS Code plugin:
+
+1. Make sure you have Python 3.9 installed on your computer. It is one of the requirements for the extension.
+2. Go to extensions in VSCode and install the extension. Search [MicroPico](https://marketplace.visualstudio.com/items?itemName=paulober.pico-w-go).
+
+### Wenn der Raspberry Pi läuft
+
 Vor der initalen Nutzung sollte mit dem ausführen der [SetTime Modul](SetTime.py) die aktuelle Uhrzeit und das Datum eingestellt werden, welche auf das RTC-Modul DS1307 gespeichert wird. Die Uhrzeit und das Datum wird im Leerlauf auf dem 16x2 LCD-Display angezeigt.
 
 ## Tag Typen
 
-Es können die speziellen Tag-Typen goldTag, silverTag und bronzeTag jeweils einem RFID-Tag zugewiesen werden.
+Es können die speziellen Tag-Typen *goldTag*, *silverTag* und *bronzeTag* jeweils einem RFID-Tag zugewiesen werden.
 Die Funktion der speziellen Tag-Typen ist wie folgt:
 
 | Tag | Beschreibung |
