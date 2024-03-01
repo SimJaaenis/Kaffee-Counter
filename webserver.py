@@ -72,7 +72,7 @@ def catchall(request):
     '''The catchall implementations'''
     return redirect(f"http://{DOMAIN}/")
 
-def init_webserver():
+async def run_webserver():
     '''Initialisiere den Webserver.'''
     print("Starte Server...")
     server.run()

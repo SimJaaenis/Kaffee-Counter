@@ -1,3 +1,4 @@
+import uasyncio
 from time import sleep_ms, time
 from machine import I2C, Pin
 import utime
@@ -32,7 +33,7 @@ bronzeTag = 281526448
 # result = I2C.scan(i2c_rtc)
 # rtc = DS1307(i2c_rtc)
 
-# def Uhr():
+# async def Uhr():
 #     while True:
 #         (year,month,date,day,hour,minute,second,p1)=rtc.datetime()
 #         # lcd.clear()
@@ -45,14 +46,14 @@ bronzeTag = 281526448
 #         lcd.move_to(7,1)
 #         lcd.putstr(str("%02d"%date) + "." + str("%02d"%month) + "." + str("%02d"%year)[2:])
 #         utime.sleep(0.01)
-#         yield None
+#         await uasyncio.sleep_ms(10) 
 
 # #### Karte
 # reader = MFRC522(spi_id=0,sck=6,miso=4,mosi=7,cs=5,rst=22)
  
 # print("Bring TAG closer...")
 # print("")
-# def Karte():
+# async def Karte():
 #     while True:
 #         global reader
 #         reader.init()
@@ -229,24 +230,19 @@ bronzeTag = 281526448
 #                     lcd.clear()
 #                 print("Bring TAG closer...")
 #                 print("")
-#         yield None
+#                 await uasyncio.sleep_ms(10)
 
-def dummy_task():
+async def dummy_task():
     '''Heartbeat task'''
-    last_time: int = time()
     while True:
-        if time() > last_time:
-            last_time = time()
-            print("Heartbeat Task @", last_time)
-        yield
+        print("Heartbeat Task @", time())
+        await uasyncio.sleep_ms(1000)
 
 ######## Boot & Initialisierung
 
 stdout.write("Starte Hotspot...\n")
 wap_create()
 stdout.write("Hotspot gestartet.\n")
-
-webserver.init_webserver()
 
 buzzer()
 # lcd.clear()
@@ -278,11 +274,12 @@ buzzer()
 ######## Programm
 
 TaskQueue = [
-    dummy_task()
+        dummy_task(),
+        webserver.run_webserver()
         #Uhr(), Karte()
     ]
 
-while True:
-    # main loop here
-    for task in TaskQueue:
-        next(task)
+EVENT_LOOP = uasyncio.get_event_loop()
+for task in TaskQueue:
+    EVENT_LOOP.create_task(task)
+EVENT_LOOP.run_forever()
