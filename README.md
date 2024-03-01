@@ -28,6 +28,10 @@ Um das virtual environment zu aktivieren, nutze den Befehl in VS Code in der Com
 
 > Python: Select Interpreter
 
+Installiere das `micropy-cli`:
+
+> pip install micropy-cli
+
 Wenn du Änderungen an den Abhängigkeiten vornimmst, dann speichere diese Änderungen mit folgendem Befehl in einem Terminal (PowerShell, ...):
 
 > pip freeze > requirements.txt
