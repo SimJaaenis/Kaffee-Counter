@@ -2,11 +2,35 @@
 
 Implementiert mit Micropython auf Raspberry Pi Pico W.
 
+- [RFID Kaffee-Counter](#rfid-kaffee-counter)
+  - [Gehäuse](#gehäuse)
+  - [Initiales Setup](#initiales-setup)
+    - [Python Virtual Environment (venv) aktivieren](#python-virtual-environment-venv-aktivieren)
+    - [Micropython Setup in VS Code](#micropython-setup-in-vs-code)
+    - [Wenn der Raspberry Pi läuft](#wenn-der-raspberry-pi-läuft)
+  - [Tag Typen](#tag-typen)
+  - [Datenhaltung](#datenhaltung)
+    - [Format der Datei Karte\_NutzerID](#format-der-datei-karte_nutzerid)
+    - [Format der Datei NutzerID\_Kaffee](#format-der-datei-nutzerid_kaffee)
+  - [Known bugs / quirks](#known-bugs--quirks)
+
 ## Gehäuse
 
 Die STL-Datei ist für ein "[TEKO Gehäuse, 115.5, ABS, Hellgrau, 161 x 95 x 60 mm, Europult](https://www.pollin.de/p/teko-gehaeuse-115-5-abs-hellgrau-161-x-95-x-60-mm-europult-460938)" erstellt worden.
 
 ## Initiales Setup
+
+### Python Virtual Environment (venv) aktivieren
+
+Zur einfacheren Abhängigkeitsverwaltung enthält dieses Projekt ein Python Virtual Environment (venv). Die Abhängigkeiten sind in [requirements.txt](requirements.txt) gelistet.
+
+Um das virtual environment zu aktivieren, nutze den Befehl in VS Code in der Command Palette (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>):
+
+> Python: Select Interpreter
+
+Wenn du Änderungen an den Abhängigkeiten vornimmst, dann speichere diese Änderungen mit folgendem Befehl in einem Terminal (PowerShell, ...):
+
+> pip freeze > requirements.txt
 
 ### Micropython Setup in VS Code
 
