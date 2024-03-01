@@ -49,6 +49,11 @@ Now install VS Code plugin:
 1. Make sure you have Python 3.9 installed on your computer. It is one of the requirements for the extension.
 2. Go to extensions in VSCode and install the extension. Search [MicroPico](https://marketplace.visualstudio.com/items?itemName=paulober.pico-w-go).
 
+Immer wenn neue Dateien bei dem Projekt dabei sind:
+
+1. Rechtsklick im Workspace-Baum (Ordnerstruktur links) -> `Upload project to Pico`
+2. Rechtsklick auf `main.py` -> `Run current file on Pico`
+
 ### Wenn der Raspberry Pi läuft
 
 Vor der initalen Nutzung sollte mit dem ausführen der [SetTime Modul](SetTime.py) die aktuelle Uhrzeit und das Datum eingestellt werden, welche auf das RTC-Modul DS1307 gespeichert wird. Die Uhrzeit und das Datum wird im Leerlauf auf dem 16x2 LCD-Display angezeigt.
