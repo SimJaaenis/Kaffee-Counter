@@ -1,85 +1,96 @@
 <!doctype html>
 <html lang="de">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="data:">
-    <style>
-      * {
-        font-family: sans-serif;
-      }
 
-      foot p {
-        font-size: .75em;
-        padding: -1em;
-        align-self: horizontal;
-      }
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="data:">
+  <style>
+    * {
+      font-family: sans-serif;
+    }
 
-      .author {
-        font-family: Cursive;
-      }
+    foot p {
+      font-size: .75em;
+      padding: -1em;
+      align-self: horizontal;
+    }
 
-      .debug-info {
-        font-family: "Consolas", Monospace;
-      }
-table {
-	border-collapse: collapse;
-	table-layout: fixed;
-  width: 100%;
-}
-col {
-	width: calc(1/3 * 100%);
-}
-      thead th {
-	font-weight: bold;
-}
+    .author {
+      font-family: Cursive;
+    }
 
-th, td {
-	padding: 0.25em;
-	text-align: center;
-}
+    .debug-info {
+      font-family: "Consolas", Monospace;
+    }
 
-tbody tr:hover {
-	background: hsl(220deg 100% 80% / 0.3);
-}
+    table {
+      border-collapse: collapse;
+      table-layout: fixed;
+      width: 100%;
+    }
 
-      col:nth-of-type(3)
-      {
-        font-family: monospace;
-      }
+    col {
+      width: calc(1/3 * 100%);
+    }
 
-    </style>
-    <a href="kaffee-counter.local">
-    <title>Kaffeeliste GSS</title></a>
-  </head>
+    thead th {
+      font-weight: bold;
+    }
 
-  <body>
+    th,
+    td {
+      padding: 0.25em;
+      text-align: center;
+    }
+
+    tbody tr:hover {
+      background: hsl(220deg 100% 80% / 0.3);
+    }
+
+    col:nth-of-type(3) {
+      font-family: monospace;
+    }
+
+    a {
+      text-decoration: none;
+      color: black;
+    }
+  </style>
+
+  <title>Kaffeeliste GSS</title>
+</head>
+
+<body>
+  <a href="http://kaffee-counter.local">
     <h1 align="center">☕ Kaffee Liste</h1>
-    <p>
-      Stand: {{curr_date}}
-    </p>
-    <table>
-      <colgroup>
-        <col />
-        <col />
-        <col />
-      </colgroup>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Anzahl ☕</th>
-          <th>Id</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{coffee_data_table_html}}
-      </tbody>
-    </table>
-  </body>
-  <foot>
-    <!--<p class="debug-info">Verbindung mit {{client_ip_addr}}</p>-->
-    <p class="author">
-      Simon &amp; Philipp 2024
-    </p>
-  </foot>
+  </a>
+  <p>
+    Stand: {{curr_date}}
+  </p>
+  <table>
+    <colgroup>
+      <col />
+      <col />
+      <col />
+    </colgroup>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Anzahl ☕</th>
+        <th>Id</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{coffee_data_table_html}}
+    </tbody>
+  </table>
+</body>
+<foot>
+  <!--<p class="debug-info">Verbindung mit {{client_ip_addr}}</p>-->
+  <p class="author">
+    Simon &amp; Philipp 2024
+  </p>
+</foot>
+
 </html>
