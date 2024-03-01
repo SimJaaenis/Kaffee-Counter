@@ -1,4 +1,4 @@
-from time import sleep_ms
+from time import sleep_ms, time
 from machine import I2C, Pin
 import utime
 from lib.urtc import DS1307
@@ -231,6 +231,15 @@ bronzeTag = 281526448
 #                 print("")
 #         yield None
 
+def dummy_task():
+    '''Heartbeat task'''
+    last_time: int = time()
+    while True:
+        if time() > last_time:
+            last_time = time()
+            print("Heartbeat Task @", last_time)
+        yield
+
 ######## Boot & Initialisierung
 
 stdout.write("Starte Hotspot...\n")
@@ -270,7 +279,8 @@ buzzer()
 ######## Programm
 
 TaskQueue = [
-    server.webserver_task()
+    server.webserver_task(),
+    dummy_task()
         #Uhr(), Karte()
     ]
 

@@ -34,10 +34,11 @@ class Webserver:
         print("Starte Server...")
         self.addr = socket.getaddrinfo('0.0.0.0', 80)[0][-1]
         self.server = socket.socket()
+        self.server.setblocking(False)
         self.server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.server.bind(self.addr)
         self.server.listen(1)
-        print("Server hört auf ", self.addr)
+        print("Server hoert auf ", self.addr)
         print()
         print("Server gestartet.")
 
@@ -61,15 +62,15 @@ class Webserver:
                 conn.close()
                 print('HTTP-Response gesendet')
                 print()
-            except OSError as e:
-                print("OS Error happened in Webserver: " + str(e))
-                break
+            except OSError:
+                #print("OS Error happened in Webserver: " + str(e))
+                pass
             except KeyboardInterrupt:
-                break
-            yield None
+                yield None
+            yield
 
     def __do_heartbeat(self) -> None:
         '''Schreibt periodisch eine Heartbeat message auf die Konsole.'''
         if time.time() > self.last_debug_heartbeat + HEARTBEAT_EVERY_SECOND:
             print("Webserver läuft: ", time.time())
-            self.last_debug_heartbeat = time.time() 
+            self.last_debug_heartbeat = time.time()
