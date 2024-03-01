@@ -4,16 +4,12 @@ import socket
 import time
 # from typing import Optional, List, Tuple
 
-html: str = """<!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="shortcut icon" href="data:">
-<title>Raspberry Pi Pico</title>
-</head>
-<body>
-<h1 align="center">Raspberry Pi Pico W</h1>
-<p align="center">Verbindung mit %s</p></body>
-</html>"""
-''' HTML, das ausgeliefert wird (Dummy)'''
+html: str
+with open('resources/index.html', "r", encoding="utf-8") as f:
+    html = f.read()
+
+if len(html) < 100:
+    raise FileNotFoundError("HTML could not be found.")
 
 HEARTBEAT_EVERY_SECOND: int = 5
 '''How many seconds are between heartbeats on the console.'''
