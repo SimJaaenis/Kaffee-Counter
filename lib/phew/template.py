@@ -45,6 +45,7 @@ async def render_template(template, **kwargs):
           result = result.replace(">", "&gt;")
           result = result.replace("<", "&lt;")
         else:
+          print("[DEBUG] evaluating template expression")
           result = eval(expression, globals(), params)
 
         if type(result).__name__ == "generator":
