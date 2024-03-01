@@ -9,6 +9,7 @@ Implementiert mit Micropython auf Raspberry Pi Pico W.
     - [Micropython Setup in VS Code](#micropython-setup-in-vs-code)
     - [Wenn der Raspberry Pi läuft](#wenn-der-raspberry-pi-läuft)
   - [Tag Typen](#tag-typen)
+  - [Captive Portal](#captive-portal)
   - [Datenhaltung](#datenhaltung)
     - [Format der Datei Karte\_NutzerID](#format-der-datei-karte_nutzerid)
     - [Format der Datei NutzerID\_Kaffee](#format-der-datei-nutzerid_kaffee)
@@ -68,6 +69,12 @@ Die Funktion der speziellen Tag-Typen ist wie folgt:
 | goldTag | Der GoldTag ist in der Lage den Kaffee Counter eines Nutzers auf 0 zu reseten. Dazu muss der GoldTag ausgelesen werden und nach aufforderung der zu Nutzertag der zurückgesetzt werden soll. Der Counter wird anschließend auf 0 gesetzt und die Anzahl ein letztes mal im Display angezeigt. Im Anschluss kann nicht mehr nachvollzogen werden wie viele Kaffees getrunken wurden. |
 | silverTag | Der Silver Tag funktioniert wie der GoldTag, nur dass die Anzahl der bezogenen Kaffees im Anschluss nicht gelöscht wird. Der Tag wurde auf nachfrage der Nutzer implementiert für Nutzer, die ihre aktuellen Bezüge selbst prüfen wollten. |
 | bronzeTag | Der BronzeTag existiert aus Demonstrationsgründen um Nutzern bei der ersteinweisung zu zeigen was passiert, wenn ein unbekannter Tag erkannt wird. Es erscheint nach dem scannen des Tags die Meldung "Nutzer unbekannt" - "Neuer Nutzer hinzugefügt", allerding ohne einen neuen Nutzer anzulegen. Um den einzuweisenden Nutzern das korrekte scannen zu demonstrieren, empfiehlt es sich einen normalen Nutzer als Demo-Nutzer anzulegen |
+
+## Captive Portal
+
+Das Captive Portal (sofort erscheinende Webseite bei WLAN Verbindung) ist basierend auf der [phew](https://github.com/pimoroni/phew/) Bibliothek aufgebaut (siehe auch [hier im lib Ordner](lib/phew/LICENSE)).
+
+Die Informationen zu den einzelnen Webportalen stammen von <https://picockpit.com/raspberry-pi/raspberry-pi-pico-w-captive-portal-hotspot-access-point-pop-up/>. Unterschiedliche Geräte (z.B. iOS, Android, ...) handeln das Captive Portal unterschiedlich.
 
 ## Datenhaltung
 

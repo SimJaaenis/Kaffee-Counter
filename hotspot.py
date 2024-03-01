@@ -4,6 +4,7 @@ The Hotspot functionality is used for accessing the Webserver that serves the
 current coffee stats.
 '''
 
+from phew import dns
 import network
 import rp2
 
@@ -18,6 +19,9 @@ def wap_create() -> None:
     print('IPv4-Adresse:', net_config[0], '/', net_config[1])
     print('Standard-Gateway:', net_config[2])
     print('DNS-Server:', net_config[3])
+    print("starting DNS Catchall...")
+    dns.run_catchall(net_config[0])
+    print("Started DNS")
 
 if __name__ == '__main__':
     print("not meant for standalone configuration")
