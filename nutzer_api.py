@@ -39,12 +39,11 @@ def read_Nutzer():
 
 def update_Nutzer():
     nutzer_kaffee_log = ""
-    nk_file = open('/Logs/NutzerID_Kaffee.log', 'w')
-    for key in nutzer_kaffee.keys():
-        zeile = str(key) + ":" + str(nutzer_kaffee[key]) + "\n"
-        nutzer_kaffee_log = nutzer_kaffee_log + zeile
-    nk_file.write(nutzer_kaffee_log)
-    nk_file.close()
+    with open('/Logs/NutzerID_Kaffee.log', 'w') as nk_file:
+        for key in nutzer_kaffee.keys():
+            zeile = str(key) + ":" + str(nutzer_kaffee[key]) + "\n"
+            nutzer_kaffee_log = nutzer_kaffee_log + zeile
+        nk_file.write(nutzer_kaffee_log)
 #    print(nutzer_kaffee_log)
     
 def known_User(card):
@@ -86,13 +85,11 @@ def add_Nutzer(card):
     karte_nutzer[card] = str(card)
     nutzer_kaffee[str(card)] = 0
     karte_nutzer_log = ""
-    kn_file = open('/Logs/Karte_NutzerID.log', 'w')
-    for key in karte_nutzer.keys():
-        zeile = str(key) + ":" + karte_nutzer[key] + "\n"
-        karte_nutzer_log = karte_nutzer_log + zeile
-#    print(karte_nutzer_log)
-    kn_file.write(karte_nutzer_log)
-    kn_file.close()
+    with open('/Logs/Karte_NutzerID.log', 'w') as kn_file:
+        for key in karte_nutzer.keys():
+            zeile = str(key) + ":" + karte_nutzer[key] + "\n"
+            karte_nutzer_log = karte_nutzer_log + zeile
+        kn_file.write(karte_nutzer_log)
     update_Nutzer()
 
 def reset_Nutzer(card):

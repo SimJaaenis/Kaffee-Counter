@@ -1,13 +1,16 @@
+from time import sleep_ms
 from machine import I2C, Pin
-from urtc import DS1307
 import utime
+from lib.urtc import DS1307
 from pico_i2c_lcd import I2cLcd
 from mfrc522 import MFRC522
+from sys import stdout
+
+# our libraries
 from buzzer_api import *
-from machine import Pin
-from time import sleep_ms
 from neopixel_api import *
 from nutzer_api import *
+from hotspot import wap_create
 
 ######## Definitionen
 
@@ -229,6 +232,10 @@ def Karte():
 
 ######## Boot & Initialisierung
 
+stdout.write("Starte Hotspot...\n")
+wap_create()
+stdout.write("Hotspot gestartet.\n")
+
 buzzer()
 lcd.clear()
 lcd.move_to(4,0)
@@ -255,8 +262,6 @@ for i in range(4):
 for i in range(4):
     led_order(i, 'off')
 lcd.clear()
-
-
 
 ######## Programm
 
