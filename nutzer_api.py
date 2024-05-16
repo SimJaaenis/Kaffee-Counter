@@ -1,7 +1,13 @@
-nutzer = {}			# {192030770: {0: 'Nutzer 1', 1: 0}, 194779730: {0: 'Nutzer 2', 1: 0}}
-karte_nutzer = {} 	# {192030770: 'Nutzer 1', 194779730: 'Nutzer 2'}
-nutzer_kaffee = {}	# {'Nutzer 1': 0, 'Nutzer 2': 0}
-#ausgabe = ""
+nutzer = {}
+"""Beispiel: {192030770: {0: 'Nutzer 1', 1: 0}, 194779730: {0: 'Nutzer 2', 1: 0}}"""
+karte_nutzer = {}
+"""Bildet Karten-IDs auf Nutzer ab.
+
+Beispiel: {192030770: 'Nutzer 1', 194779730: 'Nutzer 2'}"""
+nutzer_kaffee = {}
+"""Bildet Nutzer auf Kaffee Anzahl ab.
+
+Beispiel: {'Nutzer 1': 0, 'Nutzer 2': 0}"""
 
 # def read_Nutzer():
 #     with open('NutzerLog.log') as log:
@@ -17,6 +23,7 @@ nutzer_kaffee = {}	# {'Nutzer 1': 0, 'Nutzer 2': 0}
 #     print(nutzer)
 
 def read_Nutzer():
+    """Update the amount of coffee for each user. (See 'nutzer_kaffee')"""
     with open('/Logs/Karte_NutzerID.log') as kn_log:
         kn_lines = [line.rstrip() for line in kn_log]
     for i in range(len(kn_lines)):

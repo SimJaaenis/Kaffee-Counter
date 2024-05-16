@@ -1,76 +1,80 @@
 '''the Webserver that actually serves the Kaffee information.'''
 
-import socket
+from phew import logging, server
+from phew.template import render_template
+from phew.server import redirect
+import nutzer_api as kaffeetrinker
+
 import time
 # from typing import Optional, List, Tuple
 
-html: str = """<!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="shortcut icon" href="data:">
-<title>Raspberry Pi Pico</title>
-</head>
-<body>
-<h1 align="center">Raspberry Pi Pico W</h1>
-<p align="center">Verbindung mit %s</p></body>
-</html>"""
-''' HTML, das ausgeliefert wird (Dummy)'''
+DOMAIN: str = "kaffee-counter.local"
 
-HEARTBEAT_EVERY_SECOND: int = 5
-'''How many seconds are between heartbeats on the console.'''
+def convert_nutzer_to_html(nutzer_kaffee) -> str:
+    """Konvertiere das Nutzer -> Kaffee Mapping zu HTML-Tabelleninhalt."""
+    result: str = ""
+    if nutzer_kaffee is not None:
+        print(f"I will output {len(nutzer_kaffee)} Kaffeetrinker.")
+    if len(nutzer_kaffee) > 0:
+        for nutzer, anzahl in nutzer_kaffee.items():
+            result = result + f"<tr><td>{nutzer}</td><td>{anzahl}</td><td>PLACEHOLDER</td></tr>"
+    return result
 
-class Webserver:
-    '''Der Kaffee Webserver.
-    
-    Rufe einmal init() auf, dann die task() in der main TaskQueue.'''
-    def __init__(self) -> None:
-        self.addr = None
-        self.server: socket.socket
-        self.last_debug_heartbeat = time.time()
 
-    def init_webserver(self):
-        '''Initialisiere den Webserver.
-        
-        MUSS vor der webserver_task() aufgerufen werden!'''
-        print("Starte Server...")
-        self.addr = socket.getaddrinfo('0.0.0.0', 80)[0][-1]
-        self.server = socket.socket()
-        self.server.setblocking(False)
-        self.server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.server.bind(self.addr)
-        self.server.listen(1)
-        print("Server hoert auf ", self.addr)
-        print()
-        print("Server gestartet.")
+@server.route("/", methods=['GET'])
+def index(request: server.Request):
+    """ Render the Index page"""
+    if request.method == 'GET':
+        logging.debug("Get request")
+        kaffeetrinker.read_Nutzer()
+        html_table: str = convert_nutzer_to_html(kaffeetrinker.nutzer_kaffee)
+        with open("resources/index.html", "r", encoding="utf-8") as f:
+            return f.read().replace("{{curr_date}}", "placeholder")\
+            .replace("{{coffee_data_table_html}}", html_table)
 
-    def webserver_task(self):
-        '''Task for the webserver (to be called in "main" method)'''
-        while True:
-            if self.server is None or self.addr is None:
-                print("Webserver not initialized.")
-                yield None
-            try:
-                self.__do_heartbeat()
-                conn, addr = self.server.accept()
-                print('HTTP-Request von Client', addr)
-                request = conn.recv(1024)
-                # HTTP-Request anzeigen
-                print('Request:', request)
-                # HTTP-Response senden
-                response = html % str(addr)
-                conn.send('HTTP/1.0 200 OK\r\nContent-type: text/html\r\n\r\n')
-                conn.send(response)
-                conn.close()
-                print('HTTP-Response gesendet')
-                print()
-            except OSError:
-                #print("OS Error happened in Webserver: " + str(e))
-                pass
-            except KeyboardInterrupt:
-                yield None
-            yield
+# microsoft windows redirects
+@server.route("/ncsi.txt", methods=["GET"])
+def hotspot_win_1(request):
+    print(request)
+    print("ncsi.txt")
+    return "", 200
 
-    def __do_heartbeat(self) -> None:
-        '''Schreibt periodisch eine Heartbeat message auf die Konsole.'''
-        if time.time() > self.last_debug_heartbeat + HEARTBEAT_EVERY_SECOND:
-            print("Webserver läuft: ", time.time())
-            self.last_debug_heartbeat = time.time()
+
+@server.route("/connecttest.txt", methods=["GET"])
+def hotspot_win_2(request):
+    print(request)
+    print("connecttest.txt")
+    return "", 200
+
+
+@server.route("/redirect", methods=["GET"])
+def hotspot_win_3(request):
+    print(request)
+    print("****************ms redir*********************")
+    return redirect(f"http://{DOMAIN}/", 302)
+
+# android redirects
+@server.route("/generate_204", methods=["GET"])
+def hotspot_android(request):
+    print(request)
+    print("******generate_204********")
+    return redirect(f"http://{DOMAIN}/", 302)
+
+# apple redir
+@server.route("/hotspot-detect.html", methods=["GET"])
+def hotspot_apple(request):
+    """ Redirect to the Index Page """
+    print(request)
+    return index(request)
+
+@server.catchall()
+def catchall(request):
+    '''The catchall implementations'''
+    return redirect(f"http://{DOMAIN}/")
+
+async def run_webserver():
+    '''Initialisiere den Webserver.'''
+    print("Starte Server...")
+    server.run()
+    print()
+    print("Server gestartet.")
