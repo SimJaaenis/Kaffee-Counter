@@ -1,0 +1,12 @@
+{
+  "next_user_num": 3,
+  "unknown_name_template": "Nutzer {n}",
+  "users": [
+    {
+      "name": "Max Muster",
+      "user_id": "u001",
+      "cards": ["01234567891011", "01234567891012"]
+    },
+    { "name": "John Doe", "user_id": "u002", "cards": ["01234567891013"] }
+  ]
+}

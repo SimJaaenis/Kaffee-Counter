@@ -1,0 +1,29 @@
+{
+  "default_product_id": "p001",
+  "products": [
+    {
+      "id": "p001",
+      "price_cents": 50,
+      "name": "Kaffee",
+      "bg_color": "#B1DD8B"
+    },
+    {
+      "id": "p002",
+      "price_cents": 50,
+      "name": "Espresso",
+      "bg_color": "#FFB5AF"
+    },
+    {
+      "id": "p003",
+      "price_cents": 100,
+      "name": "Snickers",
+      "bg_color": "#D932D6"
+    },
+    {
+      "id": "p004",
+      "price_cents": 100,
+      "name": "Mars",
+      "bg_color": "#D9327A"
+    }
+  ]
+}

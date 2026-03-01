@@ -1,0 +1,81 @@
+{
+  "rgb": { "invert": true },
+  "mirror_log": false,
+  "ap": {
+    "ip": "192.168.4.1",
+    "wpa2_password": "KaffeeAdmin42",
+    "ssid": "KaffeeCounter",
+    "mode": "open",
+    "hidden": true
+  },
+  "printer": {
+    "enabled": true,
+    "receipt_per_booking": false,
+    "tx_pin": 8,
+    "timeout_ms": 100,
+    "baudrate": 38400,
+    "uart_id": 1,
+    "rx_pin": 9
+  },
+  "jingles": {
+    "caffee": [
+      [523, 160],
+      [440, 140],
+      [349, 180],
+      [349, 120],
+      [330, 220],
+      [0, 60],
+      [330, 180],
+      [494, 140],
+      [440, 140],
+      [415, 180],
+      [659, 260],
+      [0, 80],
+      [523, 140],
+      [440, 140],
+      [349, 180],
+      [330, 240],
+      [494, 120],
+      [440, 120],
+      [415, 160],
+      [659, 320]
+    ],
+    "jingle": [
+      [523, 160],
+      [659, 140],
+      [784, 220],
+      [0, 60],
+      [784, 120],
+      [880, 140],
+      [1047, 260],
+      [0, 80],
+      [784, 120],
+      [659, 120],
+      [523, 320]
+    ]
+  },
+  "boot_jingle": { "enabled": true, "selected": "jingle" },
+  "admin": {
+    "password_sha256_hex": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+    "username": "admin"
+  },
+  "admins": [
+    {
+      "username": "admin",
+      "password_sha256_hex": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+      "cards": ["01234567891010", "01234567891011"]
+    }
+  ],
+  "display": {
+    "normal_brightness": 255,
+    "active_windows": [
+      { "start": "06:00", "days": [0, 1, 2, 3, 4], "end": "20:00" }
+    ],
+    "outside_schedule_off": true,
+    "dim_brightness": 75,
+    "outside_wake_s": 120,
+    "idle_dim_after_s": 90,
+    "sleep_brightness": 10
+  },
+  "log_mirror_internal": { "enabled": true, "root": "/pico_logs" }
+}
